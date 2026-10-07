@@ -1,0 +1,65 @@
+CONTROLLER FIXES - UE4SS NOT REQUIRED
+Build Instructions
+Release: v1.3.4
+
+The native DLL was built with LLVM/Clang 17 and LLD 17 for 64-bit Windows.
+
+Files used:
+- source\controller_lock.cpp
+- source\kernel32.def
+- source\user32.def
+- source\version_compat.def
+
+From the source folder:
+
+1. Create the Windows import libraries:
+
+lld-link /lib /def:kernel32.def /machine:x64 /out:kernel32.lib
+
+lld-link /lib /def:user32.def /machine:x64 /out:user32.lib
+
+
+2. Compile the source:
+
+clang++ -target x86_64-pc-windows-msvc -c controller_lock.cpp -o controller_lock.obj -O2 -fno-exceptions -fno-rtti -fno-stack-protector -fno-unwind-tables -fno-asynchronous-unwind-tables
+
+
+3. Link the DLL:
+
+lld-link /dll /entry:DllMain /nodefaultlib /subsystem:windows /machine:x64 controller_lock.obj kernel32.lib user32.lib /def:version_compat.def /timestamp:1788489263 /out:DawnwalkerControllerFix.dll
+
+
+Verification
+============
+The expected SHA-256 for the release DLL is:
+
+95FE31CB82D60B68A8D4D4FE7EDA22CF848667C733CBC202C16724C34F396CA7
+
+PowerShell can be used to check it:
+
+(Get-FileHash .\DawnwalkerControllerFix.dll -Algorithm SHA256).Hash
+
+The fixed /timestamp value is included because the PE header timestamp affects
+the final file hash. Using the commands above reproduces the submitted release
+DLL byte-for-byte.
+
+
+Installer
+=========
+The installer source is included as:
+
+- source\SETUP.bat
+- source\Setup.ps1
+
+The installer locates Dawnwalker.exe, copies/backups/restores the DLL files,
+calculates SHA-256 hashes, and edits Dawnwalker's local Engine.ini.
+
+It adds:
+
+[ConsoleVariables]
+Slate.EnableSyntheticCursorMoves=0
+
+The release payload is named DawnwalkerControllerFix.dll in the download.
+During installation it is copied beside Dawnwalker.exe as version.dll.
+Standard version.dll exports are forwarded through version_chain.dll.
+
