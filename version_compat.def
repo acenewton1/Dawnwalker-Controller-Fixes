@@ -1,0 +1,19 @@
+LIBRARY version.dll
+EXPORTS
+GetFileVersionInfoA=version_chain.GetFileVersionInfoA @1
+GetFileVersionInfoByHandle=version_chain.GetFileVersionInfoByHandle @2
+GetFileVersionInfoExA=version_chain.GetFileVersionInfoExA @3
+GetFileVersionInfoExW=version_chain.GetFileVersionInfoExW @4
+GetFileVersionInfoSizeA=version_chain.GetFileVersionInfoSizeA @5
+GetFileVersionInfoSizeExA=version_chain.GetFileVersionInfoSizeExA @6
+GetFileVersionInfoSizeExW=version_chain.GetFileVersionInfoSizeExW @7
+GetFileVersionInfoSizeW=version_chain.GetFileVersionInfoSizeW @8
+GetFileVersionInfoW=version_chain.GetFileVersionInfoW @9
+VerFindFileA=version_chain.VerFindFileA @10
+VerFindFileW=version_chain.VerFindFileW @11
+VerInstallFileA=version_chain.VerInstallFileA @12
+VerInstallFileW=version_chain.VerInstallFileW @13
+VerLanguageNameA=version_chain.VerLanguageNameA @14
+VerLanguageNameW=version_chain.VerLanguageNameW @15
+VerQueryValueA=version_chain.VerQueryValueA @16
+VerQueryValueW=version_chain.VerQueryValueW @17

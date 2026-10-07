@@ -1,0 +1,19 @@
+LIBRARY USER32.dll
+EXPORTS
+EnumWindows
+GetWindowThreadProcessId
+IsWindowVisible
+IsWindow
+SetWindowLongPtrW
+GetWindowLongPtrW
+CallWindowProcW
+DefWindowProcW
+GetRawInputData
+RegisterRawInputDevices
+GetRegisteredRawInputDevices
+GetForegroundWindow
+GetAsyncKeyState
+SetCursor
+SetWindowsHookExW
+CallNextHookEx
+GetMessageW
